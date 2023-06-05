@@ -19,6 +19,6 @@ public class BusinessRuleEngine {
     }
 
     public void run() {
-        this.rules.forEach(rule -> rule.perform(facts));
+        this.rules.stream().sorted((a,b)->a.getRank()-b.getRank()).forEach(rule -> rule.perform(facts));
     }
 }
