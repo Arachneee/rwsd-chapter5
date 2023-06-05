@@ -7,6 +7,10 @@ public class RuleBuilder {
     private RuleBuilder(Condition condition) {
         this.condition = condition;
     }
+    private RuleBuilder(Condition condition, Action action) {
+        this.condition = condition;
+        this.action = action;
+    }
 
     public static RuleBuilder when(Condition condition) {
         return new RuleBuilder(condition);
@@ -19,9 +23,8 @@ public class RuleBuilder {
     }
 
 
-    public Rule then(Action action) {
-        this.action = action;
-        return new Rule(condition, action);
+    public RuleBuilder then(Action action) {
+        return new RuleBuilder(condition, action);
     }
     public Rule order(int rank){
         return new Rule(condition, action, rank);

@@ -12,11 +12,12 @@ public class Main {
 
         final Rule ruleSendEmailToSalesWhenCEO =
                 RuleBuilder
-                        .when(facts -> "CEO".equals(facts.getFact("jobTitle")))
+                        .whenOr(facts -> "CEO".equals(facts.getFact("jobTitle")),facts -> "Bob".equals(facts.getFact("name")))
                         .then(facts -> {
                             var name = facts.getFact("name");
                             System.out.println("Relevant customer!!!: " + name);
-                        });
+                        }).order(1);
+
 
         businessRuleEngine.addRule(ruleSendEmailToSalesWhenCEO);
         businessRuleEngine.run();
